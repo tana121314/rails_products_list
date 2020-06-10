@@ -1,0 +1,16 @@
+h1 商品一覧
+table
+  tr
+    th 商品コード
+    th 商品名
+    th 商品画像
+    th メモ
+  - @products.each do |product|
+    tr
+      td = product.code
+      td = product.name
+      td
+        | <img src="
+        = product.image_url
+        | ">
+      td = product.note
