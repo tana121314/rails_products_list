@@ -20,5 +20,5 @@ Bundler.require(*Rails.groups)
 module App
   class Application < Rails::Application
     config.generators.template_engine = :slim #slimに変更
-  end                                                                                                                                                                     
+  end
 end
