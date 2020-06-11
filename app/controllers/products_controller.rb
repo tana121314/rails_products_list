@@ -10,7 +10,7 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(code:params[:code], name:params[:name], stock_number:params[:stock_number], image_url:params[:image_url], note:params[:note])
     if @product.save
-      redirect_to("/products")
+      redirect_to("/")
     else
       # render 'new'
       render action: :new

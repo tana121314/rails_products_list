@@ -9,21 +9,20 @@
           = message
 
 / 追加フォーム
-= form_tag("/products") do
-  
+= form_tag(@product) do
   div
     p 商品コード
-    input name="code"
+    input name="code" value="#{@product.code}"
   div
     p 商品名
-    input name="name"
+    input name="name" value="#{@product.name}"
   div
     p 在庫数
-    input name="stock_number"
+    input name="stock_number" value="#{@product.stock_number}"
   div
     p 商品画像
-    input name="image_url"
+    input name="image_url" value="#{@product.image_url}"
   div
     p メモ
-    input name="note"
+    input name="note" value="#{@product.note}"
   input type="submit" value="追加"
