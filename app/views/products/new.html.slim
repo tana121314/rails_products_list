@@ -1,0 +1,29 @@
+/ 新規追加画面
+
+/ エラーメッセージ
+- if @product.errors.any?
+  .alert
+    ul
+      - @product.errors.full_messages.each do |message|
+        li
+          = message
+
+/ 追加フォーム
+= form_tag("/products") do
+  
+  div
+    p 商品コード
+    input name="code"
+  div
+    p 商品名
+    input name="name"
+  div
+    p 在庫数
+    input name="stock_number"
+  div
+    p 商品画像
+    input name="image_url"
+  div
+    p メモ
+    input name="note"
+  input type="submit" value="追加"

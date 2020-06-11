@@ -1,16 +1,19 @@
+/ 商品一覧ページ
 h1 商品一覧
+
+= link_to("新規追加", "products/new")
 table
   tr
     th 商品コード
     th 商品名
+    th 在庫数
     th 商品画像
     th メモ
   - @products.each do |product|
     tr
       td = product.code
       td = product.name
+      td = product.stock_number
       td
-        | <img src="
-        = product.image_url
-        | ">
+        img src="#{product.image_url}"
       td = product.note
