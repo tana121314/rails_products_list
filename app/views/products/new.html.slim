@@ -9,7 +9,7 @@
           = message
 
 / 追加フォーム
-= form_tag(@product) do
+= form_for @product do
   div
     p 商品コード
     input name="code" value="#{@product.code}"
