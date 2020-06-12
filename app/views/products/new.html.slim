@@ -9,20 +9,20 @@
           = message
 
 / 追加フォーム
-= form_for @product do
+= form_for @product do |f|
   div
     p 商品コード
-    input name="code" value="#{@product.code}"
+    = f.text_field :code
   div
     p 商品名
-    input name="name" value="#{@product.name}"
+    = f.text_field :name
   div
     p 在庫数
-    input name="stock_number" value="#{@product.stock_number}"
+    = f.text_field :stock_number
   div
     p 商品画像
-    input name="image_url" value="#{@product.image_url}"
+    = f.text_field :image_url
   div
     p メモ
-    input name="note" value="#{@product.note}"
-  input type="submit" value="追加"
+    = f.text_field :note
+  = f.submit '追加'
