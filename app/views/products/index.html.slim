@@ -1,19 +1,31 @@
 / 商品一覧ページ
-h1 商品一覧
+.container
+  h1.mt-4.font-weight-bold 商品一覧
 
-= link_to '新規追加', new_product_path
-table
-  tr
-    th 商品コード
-    th 商品名
-    th 在庫数
-    th 商品画像
-    th メモ
-  - @products.each do |product|
-    tr
-      td = product.code
-      td = product.name
-      td = product.stock_number
-      td
-        = image_tag product.image_url
-      td = product.note
+  / 検索フォーム
+  / = search_form_for @search do |f|
+  /   = f.label '検索ワード'
+  /   = f.search_field :name_cont
+  /   = f.submit '検索', class: 'btn btn-outline-primary'
+
+  / 新規追加ボタン
+  = link_to '新規追加', new_product_path, class: 'btn btn-outline-primary mb-4 float-right'
+
+  / テーブル
+  table.table.table-bordered.table-hover.table-sm
+    thead.thead-dark
+      tr
+        th.text-center scope='col' 商品コード
+        th.text-center scope='col' 商品名
+        th.text-center scope='col' 在庫数
+        th.text-center scope='col' 商品画像
+        th.text-center scope='col' メモ
+    - @products.each do |product|
+      tbody
+        tr
+          td.text-center.align-middle = product.code
+          td.text-center.align-middle = product.name
+          td.text-center.align-middle = product.stock_number
+          td.text-center.align-middle = image_tag product.image_url
+          td.text-center.align-middle = product.note
+  = paginate @products

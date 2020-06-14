@@ -1,6 +1,8 @@
 class ProductsController < ApplicationController
   def index
-    @products = Product.all
+    @products = Product.page(params[:page]).per(8)
+    # @search = Product.ransack(params[:q])
+    # @products = @search.result
   end
 
   def new

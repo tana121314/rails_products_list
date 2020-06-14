@@ -63,3 +63,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'slim'
 gem 'html2slim'
+
+gem 'bootstrap', '~> 4.5.0'
+gem 'kaminari', '~> 0.16.3'
+gem 'ransack'
