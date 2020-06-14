@@ -65,5 +65,5 @@ gem 'slim'
 gem 'html2slim'
 
 gem 'bootstrap', '~> 4.5.0'
-gem 'kaminari', '~> 0.16.3'
+gem 'kaminari', '~> 1.2.1'
 gem 'ransack'
