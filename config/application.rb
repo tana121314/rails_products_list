@@ -20,5 +20,6 @@ Bundler.require(*Rails.groups)
 module App
   class Application < Rails::Application
     config.generators.template_engine = :slim #slimに変更
+    config.i18n.default_locale = :ja #kaminari日本語化
   end
 end

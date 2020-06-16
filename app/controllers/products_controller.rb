@@ -1,12 +1,24 @@
 class ProductsController < ApplicationController
   def index
-    @products = Product.page(params[:page]).per(8)
-    # @search = Product.ransack(params[:q])
-    # @products = @search.result
+    @search = Product.ransack(params[:q])
+    @products = @search.result.page(params[:page]).per(5)
   end
+
+  # # ラジオボタンが複数選択される
+  # def index
+  #   params[:q] = { stock_number_gteq: 0 } if params[:stock_number] == 1
+  #   params[:q] = { stock_number_gteq: 1 } if params[:stock_number] == 2
+  #   params[:q] = { stock_number_eq: 0 } if params[:stock_number] == 3
+  #   @search = Product.ransack(params[:q])
+  #   @products = @search.result.page(params[:page]).per(5)
+  # end
 
   def new
     @product = Product.new
+  end
+
+  def show
+    @product = Product.find_by(id: params[:id])
   end
 
   def create

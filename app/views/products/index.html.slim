@@ -1,31 +1,72 @@
 / 商品一覧ページ
-.container
-  h1.mt-4.font-weight-bold 商品一覧
+.container.mt-3
 
   / 検索フォーム
-  / = search_form_for @search do |f|
-  /   = f.label '検索ワード'
-  /   = f.search_field :name_cont
-  /   = f.submit '検索', class: 'btn btn-outline-primary'
+  .card.w-75
+    .card-header 検索条件
+    .card-body
+      = search_form_for @search do |f|
+
+        / 商品名あいまい検索
+        .form-group.row
+          = f.label :name, '検索ワード', class: 'col-sm-2 col-form-label'
+          .col-sm-10
+            = f.search_field :name_cont, class: 'form-control'
+
+        / ラジオボタン在庫数有無検索
+        .form-group.row
+          = f.label :stock_number, '在庫数有無', class: 'col-sm-2 col-form-label'
+          .col-sm-10.align-self-center
+            = f.radio_button :stock_number_eq, '', class: 'mr-1', checked: true
+            | 指定なし
+            = f.radio_button :stock_number_gteq, 1, class: 'ml-3 mr-1'
+            | 有
+            = f.radio_button :stock_number_eq, 0, class: 'ml-3 mr-1'
+            | 無
+            / = radio_button_tag :stock_number, 1, checked: true
+            / | 指定なし
+            / = radio_button_tag :stock_number, 2
+            / | 有
+            / = radio_button_tag :stock_number, 3
+            / | 無
+        
+        / 作成日期間指定
+        .form-group.row.form-inline
+          = f.label :created_at, '作成日', class: 'col-sm-2 col-form-label d-inline'
+          .col-sm-10
+            = f.date_field :created_at_gteq, class: 'form-control'
+            | 　〜　
+            = f.date_field :created_at_lteq, class: 'form-control'
+        
+        / 検索ボタン
+        .form-group.row
+          .col-sm-10.offset-sm-2
+            = f.submit '検索', class: 'btn btn-primary mt-3'
 
   / 新規追加ボタン
-  = link_to '新規追加', new_product_path, class: 'btn btn-outline-primary mb-4 float-right'
+  = link_to '新規追加', new_product_path, class: 'btn btn-primary mb-4 float-right'
 
   / テーブル
-  table.table.table-bordered.table-hover.table-sm
-    thead.thead-dark
+  table.table.table-bordered.table-sm.mb-5
+    thead.thead-light
       tr
-        th.text-center scope='col' 商品コード
-        th.text-center scope='col' 商品名
-        th.text-center scope='col' 在庫数
-        th.text-center scope='col' 商品画像
-        th.text-center scope='col' メモ
+        th.text-center 商品コード
+        th.text-center 商品名
+        th.text-center
+          = sort_link @search, :stock_number, '在庫数', class: 'text-dark'
+        th.text-center 商品画像
+        th.text-center メモ
+        th.text-center 詳細
     - @products.each do |product|
       tbody
         tr
           td.text-center.align-middle = product.code
           td.text-center.align-middle = product.name
           td.text-center.align-middle = product.stock_number
-          td.text-center.align-middle = image_tag product.image_url
+          td.text-center.align-middle = image_tag product.image_url, class: 'img_index'
           td.text-center.align-middle = product.note
-  = paginate @products
+          td.text-center.align-middle
+            = link_to '詳細', product_path(product)
+  / ページネーション
+  .float-right
+    = paginate @products

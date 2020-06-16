@@ -1,0 +1,19 @@
+/ 詳細画面 card
+.container.mt-5
+  .card
+    .card-header 詳細情報
+    .card-body
+      .row
+        .col-sm-3
+          = image_tag @product.image_url, class: 'img_show'
+        .col-sm-9
+          h4
+            = @product.name
+          hr
+          div 
+            ul.p-3
+              li.mb-1 = "商品コード:#{@product.code}"
+              li.mb-1 = "在庫数:#{@product.stock_number}"
+              li.mb-1 = "メモ:#{@product.note}"
+              li.mb-1 = "作成日時:#{@product.created_at}"
+              li.mb-1 = "最終更新日時:#{@product.updated_at}"

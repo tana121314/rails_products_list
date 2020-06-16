@@ -1,0 +1,9 @@
+ja:
+  activerecord:
+    attributes:
+      product:
+        code: 商品コード
+        name: 商品名
+        stock_number: 在庫数
+        image_url: 商品画像
+        note: メモ
