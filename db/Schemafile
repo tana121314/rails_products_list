@@ -1,0 +1,2 @@
+require 'users.schema'
+require 'products.schema'

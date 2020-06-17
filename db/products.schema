@@ -1,0 +1,9 @@
+create_table "products", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  t.text "code"
+  t.string "name"
+  t.integer "stock_number"
+  t.text "image_url"
+  t.text "note"
+  t.datetime "created_at", null: false
+  t.datetime "updated_at", null: false
+end
