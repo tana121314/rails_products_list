@@ -28,6 +28,12 @@ class ProductsController < ApplicationController
     end
   end
 
+  def destroy
+    @product = Product.find_by(id: params[:id])
+    @product.destroy
+    redirect_to products_path
+  end
+
   def create
     @product = Product.new(product_params)
     if @product.save
