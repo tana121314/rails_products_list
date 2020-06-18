@@ -1,8 +1,8 @@
 class ProductsController < ApplicationController
   def index
-    params[:q][:stock_number_gteq] = '' if params[:stock_number] == '1'
-    params[:q][:stock_number_gteq] = 1  if params[:stock_number] == '2'
-    params[:q][:stock_number_eq] = 0 if params[:stock_number] == '3'
+    params[:q][:stock_number_gteq] = '' if params[:stock_number].to_i == 1
+    params[:q][:stock_number_gteq] = 1  if params[:stock_number].to_i == 2
+    params[:q][:stock_number_eq] = 0 if params[:stock_number].to_i == 3
     @search = Product.ransack(params[:q])
     @products = @search.result(distinct: true).page(params[:page]).per(3)
   end
@@ -13,6 +13,19 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.find_by(id: params[:id])
+  end
+
+  def edit
+    @product = Product.find_by(id: params[:id])
+  end
+
+  def update
+    @product = Product.find_by(id: params[:id])
+    if @product.update_attributes(product_params)
+      redirect_to product_path
+    else
+      render :edit
+    end
   end
 
   def create

@@ -17,3 +17,6 @@
               li.mb-1 = "メモ:#{@product.note}"
               li.mb-1 = "作成日時:#{@product.created_at}"
               li.mb-1 = "最終更新日時:#{@product.updated_at}"
+          = link_to '編集', edit_product_path, class: 'btn btn-primary'
+  
+  = link_to '一覧へ戻る', products_path

@@ -1,2 +1,2 @@
-require 'users.schema'
 require 'products.schema'
+require 'users.schema'

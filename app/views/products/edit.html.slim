@@ -1,9 +1,8 @@
-/ 新規追加画面
 .container.mt-5
   .card
-    .card-header 商品追加
+    .card-header 編集
     .card-body
-
+      
       / エラーメッセージ
       - if @product.errors.any?
         .alert.alert-danger.w-50 role="alert"
@@ -12,7 +11,7 @@
             - @product.errors.full_messages.each do |message|
               li = "・#{message}"
 
-      / 追加フォーム
+      / フォーム
       = form_for @product do |f|
         .form-group.row
           = f.label :'商品コード：', class: 'col-md-2 col-form-label'
@@ -30,4 +29,4 @@
           = f.label :'メモ：', class: 'col-md-2 col-form-label'
           .col-md-10 = f.text_area :note, class: 'form-control'
         .form-group.row
-          .col-md-10.offset-md-2 = f.submit '追加', class: 'btn btn-primary'
+          .col-md-10.offset-md-2 = f.submit '更新', class: 'btn btn-primary'

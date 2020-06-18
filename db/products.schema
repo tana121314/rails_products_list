@@ -1,5 +1,5 @@
-create_table "products", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-  t.text "code"
+create_table "products", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  t.integer "code"
   t.string "name"
   t.integer "stock_number"
   t.text "image_url"

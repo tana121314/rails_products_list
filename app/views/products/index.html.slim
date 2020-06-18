@@ -18,13 +18,13 @@
           = f.label :stock_number, '在庫数有無', class: 'col-sm-2 col-form-label'
           .col-sm-10.align-self-center
             .mr-2.d-inline
-              = radio_button_tag :stock_number, 1, checked: true
+              = radio_button_tag :stock_number, 1, params[:stock_number].blank? || params[:stock_number].to_i == 1
               | 指定なし
             .mr-2.d-inline
-              = radio_button_tag :stock_number, 2
+              = radio_button_tag :stock_number, 2, params[:stock_number].to_i == 2
               | 有
             .mr-2.d-inline
-              = radio_button_tag :stock_number, 3
+              = radio_button_tag :stock_number, 3, params[:stock_number].to_i == 3
               | 無
 
         / 作成日期間指定
