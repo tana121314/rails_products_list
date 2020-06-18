@@ -5,9 +5,3 @@ class Product < ApplicationRecord
   validates :image_url, length: { minimum: 0 }
   validates :note, length: { minimum: 0 }
 end
-
-# 商品コード 必須、英数字のみ、ユニーク、8文字いない
-# 商品名: 必須
-# 在庫数: 必須、0以上の数値の
-# 商品画像: 任意
-# メモ: 任意

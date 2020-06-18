@@ -2,7 +2,7 @@
 .container.mt-3
 
   / 検索フォーム
-  .card.w-75
+  .card.w-75.mb-3
     .card-header 検索条件
     .card-body
       = search_form_for @search do |f|
@@ -44,26 +44,32 @@
   = link_to '新規追加', new_product_path, class: 'btn btn-primary mb-4 float-right'
 
   / テーブル
-  table.table.table-bordered.table-sm.mb-5
-    thead.thead-light
-      tr
-        th.text-center 商品コード
-        th.text-center 商品名
-        th.text-center
-          = sort_link @search, :stock_number, '在庫数'
-        th.text-center 商品画像
-        th.text-center メモ
-        th.text-center 詳細
-    - @products.each do |product|
-      tbody
+  = form_with url: products_destroy_all_path, method: 'delete' do |f|
+    = submit_tag '一括削除', class: 'btn btn-danger float-right mr-3'
+    table.table.table-bordered.table-sm.mb-5
+      thead.thead-light
         tr
-          td.text-center.align-middle = product.code
-          td.text-center.align-middle = product.name
-          td.text-center.align-middle = product.stock_number
-          td.text-center.align-middle = image_tag product.image_url, class: 'img_index'
-          td.text-center.align-middle = product.note
-          td.text-center.align-middle
-            = link_to '詳細', product_path(product)
+          th 
+          th.text-center 商品コード
+          th.text-center 商品名
+          th.text-center
+            = sort_link @search, :stock_number, '在庫数'
+          th.text-center 商品画像
+          th.text-center メモ
+          th.text-center 詳細
+        - @products.each do |product|
+          tbody
+            tr
+              / 一括更新チェックボックス配置
+              td.text-center.align-middle
+                = check_box_tag 'id[]', product.id
+              td.text-center.align-middle = product.code
+              td.text-center.align-middle = product.name
+              td.text-center.align-middle = product.stock_number
+              td.text-center.align-middle = image_tag product.image_url, class: 'img_index'
+              td.text-center.align-middle = product.note
+              td.text-center.align-middle
+                = link_to '詳細', product_path(product)
 
   / ページネーション
   .float-right

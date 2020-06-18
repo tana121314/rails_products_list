@@ -1,0 +1,9 @@
+create_table "stocks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  t.integer "stock_id"
+  t.text "name"
+  t.text "thumbnail"
+  t.integer "number"
+  t.integer "average_price"
+  t.datetime "created_at", null: false
+  t.datetime "updated_at", null: false
+end

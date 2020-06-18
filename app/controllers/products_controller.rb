@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
     params[:q][:stock_number_gteq] = 1  if params[:stock_number].to_i == 2
     params[:q][:stock_number_eq] = 0 if params[:stock_number].to_i == 3
     @search = Product.ransack(params[:q])
-    @products = @search.result(distinct: true).page(params[:page]).per(3)
+    @products = @search.result(distinct: true).page(params[:page]).per(8)
   end
 
   def new
@@ -31,6 +31,12 @@ class ProductsController < ApplicationController
   def destroy
     @product = Product.find_by(id: params[:id])
     @product.destroy
+    redirect_to products_path
+  end
+
+  def destroy_all
+    @product = Product.where(id: params[:id])
+    @product.destroy_all
     redirect_to products_path
   end
 
