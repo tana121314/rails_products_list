@@ -1,3 +1,2 @@
 require 'products.schema'
-require 'users.schema'
 require 'stocks.schema'

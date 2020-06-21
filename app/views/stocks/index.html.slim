@@ -1,4 +1,6 @@
 .container.mt-4
+  h1 在庫情報
+  / 追加ボタン
   = link_to '新規追加', new_stock_path, class: 'btn btn-primary float-right mb-3'
   table.table.table-bordered.table-hover.table-sm.mb-5
     thead.thead-dark
@@ -6,13 +8,15 @@
         th.text-center 商品ID
         th.text-center 商品名
         th.text-center サムネイル
-        th.text-center 総個数
+        th.text-center 総庫数
         th.text-center 平均単価
-    - @stock.each do |stock|
+    - @product.each do |product|
       tbody
         tr
-          td.text-center.align-middle = stock.stock_id
-          td.text-center.align-middle = stock.name
-          td.text-center.align-middle = image_tag stock.thumbnail, class: 'img_index'
-          td.text-center.align-middle = stock.number
-          td.text-center.align-middle = stock.average_price
+          td.text-center.align-middle = product.code
+          td.text-center.align-middle = product.name
+          td.text-center.align-middle = image_tag product.image_url, class: 'img_index'
+          / quantityの合計
+          td.text-center.align-middle = product.stocks.all.sum(:quantity)
+          / quantity * priceの合計 / quantityの合計
+          td.text-center.align-middle = product.stocks.all.sum(:total) / product.stocks.all.sum(:quantity)

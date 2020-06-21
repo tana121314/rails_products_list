@@ -1,8 +1,0 @@
-create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-  t.bigint "team_id"
-  t.string "name"
-  t.string "email"
-  t.datetime "created_at", null: false
-  t.timestamp "updated_at", null: false
-  t.index ["team_id"], name: "index_team_id_on_users"
-end

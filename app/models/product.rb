@@ -4,4 +4,5 @@ class Product < ApplicationRecord
   validates :stock_number, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :image_url, length: { minimum: 0 }
   validates :note, length: { minimum: 0 }
+  has_many :stocks
 end
