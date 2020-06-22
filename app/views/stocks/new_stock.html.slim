@@ -13,9 +13,9 @@
 
       / 追加フォーム        
       = form_for @stock do |f|
-        .form-group.row
+        .form-group.row.d-none
           = f.label :'商品ID', class: 'col-sm-2 col-form-label'
-          .col-sm-10 = f.text_field :product_id, class: 'form-control'
+          .col-sm-10 = f.text_field :product_id, value: params[:product_id], class: 'form-control'
         .form-group.row
           = f.label :'単価', class: 'col-sm-2 col-form-label'
           .col-sm-10 = f.text_field :price, class: 'form-control'

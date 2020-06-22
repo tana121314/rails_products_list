@@ -7,3 +7,6 @@ ja:
         stock_number: 在庫数
         image_url: 商品画像
         note: メモ
+      stock:
+        price: 単価
+        quantity: 在庫数

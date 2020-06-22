@@ -9,18 +9,16 @@ class StocksController < ApplicationController
     end
   end
 
-  def new
+  def new_stock
     @stock = Stock.new
   end
 
   def create
     @stock = Stock.new(stock_params)
-    @product = Product.find_by(code: stock_params[:product_id])
-    @stock.product_id = @product.id
     if @stock.save
       redirect_to stocks_path
     else
-      render :new
+      render :new_stock
     end
   end
 
