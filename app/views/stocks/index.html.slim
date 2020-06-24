@@ -1,7 +1,7 @@
 .container.mt-4
   h1 在庫情報
   / 追加ボタン
-  / = link_to '新規追加', new_stock_path, class: 'btn btn-primary float-right mb-3'
+  = link_to '新規追加', new_stock_path, class: 'btn btn-primary float-right mb-3'
   table.table.table-bordered.table-hover.table-sm.mb-5
     thead.thead-dark
       tr
@@ -11,7 +11,7 @@
         th.text-center 総庫数
         th.text-center 平均単価
         th.text-center 在庫追加
-    - @product.each do |product|
+    - @products.each do |product|
       tbody
         tr
           td.text-center.align-middle = product.code
@@ -20,5 +20,10 @@
           / quantityの合計
           td.text-center.align-middle = product.stocks.all.sum(:quantity)
           / quantity * priceの合計 / quantityの合計
-          td.text-center.align-middle = product.stocks.all.sum(:total) / product.stocks.all.sum(:quantity)
-          td.text-center.align-middle = link_to '追加', "/stocks/#{product.id}"
+          td.text-center.align-middle
+            - if product.stocks.all.sum(:quantity).positive?
+              - average_price = product.stocks.all.sum(:total) / product.stocks.all.sum(:quantity)
+              = number_to_currency(average_price, format: '%u%n', unit: '¥')
+            - else
+              | ¥0
+          td.text-center.align-middle = link_to '追加', stock_new_stock_path(product)

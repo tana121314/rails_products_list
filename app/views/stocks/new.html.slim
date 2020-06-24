@@ -11,11 +11,11 @@
             - @stock.errors.full_messages.each do |message|
               li = "・#{message}"
 
-      / 追加フォーム        
-      = form_for @stock, url: stock_create_stock_path do |f|
-        .form-group.row.d-none
-          = f.label :'商品ID', class: 'col-sm-2 col-form-label'
-          .col-sm-10 = f.text_field :product_id, value: params[:product_id], class: 'form-control'
+      / 追加フォーム
+      = form_for @stock do |f|
+        .form-group.row
+          = f.label :'商品名', class: 'col-sm-2 col-form-label'
+          .col-sm-10 = f.collection_select :product_id, Product.all, :id, :name, {prompt: '選択してください'}, class: 'form-control'
         .form-group.row
           = f.label :'単価', class: 'col-sm-2 col-form-label'
           .col-sm-10 = f.text_field :price, class: 'form-control'

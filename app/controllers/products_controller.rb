@@ -11,6 +11,21 @@ class ProductsController < ApplicationController
     @product = Product.new
   end
 
+  def create
+    @product = Product.new(product_params)
+    if @product.save
+      redirect_to products_path
+    else
+      render :new
+    end
+    # stocksテーブルに在庫データを追加
+    # price quantity product_idに値を入れる
+    @stock = Stock.new({:price => params[:stock][:price], :quantity => product_params[:stock_number], :product_id => @product[:id]})
+    # totalに値を代入
+    @stock[:total] = @stock.total
+    @stock.save
+  end
+
   def show
     @product = Product.find_by(id: params[:id])
   end
@@ -38,15 +53,6 @@ class ProductsController < ApplicationController
     @product = Product.where(id: params[:id])
     @product.destroy_all
     redirect_to products_path
-  end
-
-  def create
-    @product = Product.new(product_params)
-    if @product.save
-      redirect_to products_path
-    else
-      render :new
-    end
   end
 
   private

@@ -7,5 +7,12 @@ html
     = csp_meta_tag
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
-  body
+  body.pt-5
+    / ナビゲーションバー
+    .fixed-top
+      nav.navbar.navbar-expand-lg.navbar-light.bg-light
+        a.navbar-brand href=products_path Home
+        ul.navbar-nav.mr-auto
+          li.nav-item.active
+            a.nav-link href=stocks_path 在庫一覧
     = yield
