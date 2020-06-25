@@ -17,13 +17,18 @@ class ProductsController < ApplicationController
       redirect_to products_path
     else
       render :new
+      return
     end
     # stocksテーブルに在庫データを追加
-    # price quantity product_idに値を入れる
-    @stock = Stock.new({:price => params[:stock][:price], :quantity => product_params[:stock_number], :product_id => @product[:id]})
-    # totalに値を代入
+    # @product.saveされないとidがつかない
+    # price quantity product_id totalに値を入れる
+    @stock = Stock.new({price: params[:stock][:price], quantity: product_params[:stock_number], product_id: @product[:id]})
     @stock[:total] = @stock.total
-    @stock.save
+    if @stock.save
+      redirect_to products_path
+    else
+      render :new
+    end
   end
 
   def show

@@ -8,5 +8,6 @@ ja:
         image_url: 商品画像
         note: メモ
       stock:
+        product_id: 商品名
         price: 単価
         quantity: 在庫数

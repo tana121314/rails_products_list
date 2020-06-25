@@ -4,8 +4,14 @@ Rails.application.routes.draw do
   # get '/stocks/:product_id' => 'stocks#new_stock'
   resources :products
   resources :stocks
+  # resources :stocks do
+  #   get :new_stock
+  #   post :create_stock
+  # end
   resources :stocks do
-    get :new_stock
-    post :create_stock
+    member do
+      get :new_stock
+      post :create_stock
+    end
   end
 end
