@@ -13,22 +13,16 @@ class ProductsController < ApplicationController
 
   def create
     @product = Product.new(product_params)
+    # binding.pry
     if @product.save
       redirect_to products_path
     else
       render :new
       return
     end
-    # stocksテーブルに在庫データを追加
-    # @product.saveされないとidがつかない
-    # price quantity product_id totalに値を入れる
-    @stock = Stock.new({price: params[:stock][:price], quantity: product_params[:stock_number], product_id: @product[:id]})
+    @stock = Stock.new({price: product_params[:price], quantity: product_params[:stock_number], product_id: @product[:id]})
     @stock[:total] = @stock.total
-    if @stock.save
-      redirect_to products_path
-    else
-      render :new
-    end
+    @stock.save
   end
 
   def show
@@ -61,7 +55,8 @@ class ProductsController < ApplicationController
   end
 
   private
+
   def product_params
-    params.require(:product).permit(:code, :name, :stock_number, :image_url, :note)
+    params.require(:product).permit(:code, :name, :stock_number, :price, :image_url, :note)
   end
 end

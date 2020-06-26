@@ -17,6 +17,9 @@ class StocksController < ApplicationController
     else
       render :new
     end
+    @product = Product.find_by(id: stock_params[:product_id])
+    @product.stock_number = @product.stocks.all.sum(:quantity)
+    @product.save
   end
 
   # 新規追加フォーム（一覧から直接選択）
@@ -32,9 +35,13 @@ class StocksController < ApplicationController
     else
       render :new_stock
     end
+    @product = Product.find_by(id: stock_params[:product_id])
+    @product.stock_number = @product.stocks.all.sum(:quantity)
+    @product.save
   end
 
   private
+
   def stock_params
     params.require(:stock).permit(:product_id, :price, :quantity)
   end
