@@ -20,6 +20,7 @@ class ProductsController < ApplicationController
       render :new
       return
     end
+    # stocksテーブルに在庫データを追加する
     @stock = Stock.new({price: product_params[:price], quantity: product_params[:stock_number], product_id: @product[:id]})
     @stock[:total] = @stock.total
     @stock.save

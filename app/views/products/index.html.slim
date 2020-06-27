@@ -1,49 +1,39 @@
 / 商品一覧ページ
 .container.mt-3
-  / p
-  /   a.btn.btn-primary data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"
-  /     | リンクの場合
-  / .collapse id='collapseExample'
-  /   .card.card-body
-  /     | 中身
-  .collapse#collapseExample
-    .card.w-75.mb-3
-      .card-header 検索条件
-      .card-body
-        = search_form_for @search do |f|
+  .card.w-75.mb-3
+    .card-header 検索条件
+    .card-body
+      = search_form_for @search do |f|
+        / 商品名あいまい検索
+        .form-group.row
+          = f.label :name, '検索ワード', class: 'col-sm-2 col-form-label'
+          .col-sm-10
+            = f.search_field :name_cont, class: 'form-control'
+        / ラジオボタン在庫数有無検索
+        .form-group.row
+          = f.label :stock_number, '在庫数有無', class: 'col-sm-2 col-form-label'
+          .col-sm-10.align-self-center
+            .mr-2.d-inline
+              = radio_button_tag :stock_number, 1, params[:stock_number].blank? || params[:stock_number].to_i == 1
+              | 指定なし
+            .mr-2.d-inline
+              = radio_button_tag :stock_number, 2, params[:stock_number].to_i == 2
+              | 有
+            .mr-2.d-inline
+              = radio_button_tag :stock_number, 3, params[:stock_number].to_i == 3
+              | 無
+        / 作成日期間指定
+        .form-group.row.form-inline
+          = f.label :created_at, '作成日', class: 'col-sm-2 col-form-label d-inline'
+          .col-sm-10
+            = f.date_field :created_at_gteq, class: 'form-control'
+            |  〜 
+            = f.date_field :created_at_lteq_end_of_day, class: 'form-control'
 
-          / 商品名あいまい検索
-          .form-group.row
-            = f.label :name, '検索ワード', class: 'col-sm-2 col-form-label'
-            .col-sm-10
-              = f.search_field :name_cont, class: 'form-control'
-
-          / ラジオボタン在庫数有無検索
-          .form-group.row
-            = f.label :stock_number, '在庫数有無', class: 'col-sm-2 col-form-label'
-            .col-sm-10.align-self-center
-              .mr-2.d-inline
-                = radio_button_tag :stock_number, 1, params[:stock_number].blank? || params[:stock_number].to_i == 1
-                | 指定なし
-              .mr-2.d-inline
-                = radio_button_tag :stock_number, 2, params[:stock_number].to_i == 2
-                | 有
-              .mr-2.d-inline
-                = radio_button_tag :stock_number, 3, params[:stock_number].to_i == 3
-                | 無
-
-          / 作成日期間指定
-          .form-group.row.form-inline
-            = f.label :created_at, '作成日', class: 'col-sm-2 col-form-label d-inline'
-            .col-sm-10
-              = f.date_field :created_at_gteq, class: 'form-control'
-              |  〜 
-              = f.date_field :created_at_lteq_end_of_day, class: 'form-control'
-  
-          / 検索ボタン
-          .form-group.row
-            .col-sm-10.offset-sm-2
-              = f.submit '検索', class: 'btn btn-primary mt-3'
+        / 検索ボタン
+        .form-group.row
+          .col-sm-10.offset-sm-2
+            = f.submit '検索', class: 'btn btn-primary mt-3'
 
   / 新規追加ボタン
   = link_to '新規追加', new_product_path, class: 'btn btn-primary mb-4 float-right'

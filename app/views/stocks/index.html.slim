@@ -15,8 +15,12 @@
       tbody
         tr
           td.text-center.align-middle = product.code
-          td.text-center.align-middle = product.name
-          td.text-center.align-middle = image_tag product.image_url, class: 'img_index'
+          td.text-center.align-middle = product.name.truncate(30)
+          td.text-center.align-middle 
+            - unless product.image_url.blank?
+              = image_tag product.image_url, class: 'img_index'
+            - else
+              | No image..
           / quantityの合計
           td.text-center.align-middle = product.stocks.all.sum(:quantity)
           / quantity * priceの合計 / quantityの合計
@@ -27,3 +31,5 @@
             - else
               | ¥0
           td.text-center.align-middle = link_to '追加', new_stock_stock_path(product)
+  .float-right
+    = paginate @products
