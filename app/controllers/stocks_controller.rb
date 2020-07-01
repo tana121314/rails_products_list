@@ -19,9 +19,9 @@ class StocksController < ApplicationController
       render :new
     end
     # 商品一覧に在庫数を反映させる
-    @product = Product.find_by(id: stock_params[:product_id])
-    @product.stock_number = @product.stocks.all.sum(:quantity)
-    @product.save
+    # @product = Product.find_by(id: stock_params[:product_id])
+    # @product.stock_number = @product.stocks.all.sum(:quantity)
+    # @product.save
   end
 
   # 新規追加フォーム（一覧から直接選択）
@@ -37,15 +37,26 @@ class StocksController < ApplicationController
     else
       render :new_stock
     end
-    # 商品一覧に在庫数を反映させる
-    @product = Product.find_by(id: stock_params[:product_id])
-    @product.stock_number = @product.stocks.all.sum(:quantity)
-    @product.save
+  end
+
+  # 在庫情報編集
+  def edit_stock
+    # 商品のIDに紐づけられた在庫データを全て取得
+    @stocks = Stock.where(product_id: params[:id])
+    # binding.pry
+  end
+
+  def update_stock
+    # 更新処理
+    @stock = Stock.find_by(id: stock_params[:id])
+    @stock.update_attributes(stock_params)
+    redirect_to edit_stock_stock_path
+    # productsテーブルのstock_numberにも変更を反映させたい
   end
 
   private
 
   def stock_params
-    params.require(:stock).permit(:product_id, :price, :quantity)
+    params.require(:stock).permit(:id, :product_id, :price, :quantity)
   end
 end

@@ -3,12 +3,16 @@
   .card.w-75.mb-3
     .card-header 検索条件
     .card-body
+
+      / 検索フォーム
       = search_form_for @search do |f|
+
         / 商品名あいまい検索
         .form-group.row
           = f.label :name, '検索ワード', class: 'col-sm-2 col-form-label'
           .col-sm-10
             = f.search_field :name_cont, class: 'form-control'
+
         / ラジオボタン在庫数有無検索
         .form-group.row
           = f.label :stock_number, '在庫数有無', class: 'col-sm-2 col-form-label'
@@ -22,6 +26,7 @@
             .mr-2.d-inline
               = radio_button_tag :stock_number, 3, params[:stock_number].to_i == 3
               | 無
+
         / 作成日期間指定
         .form-group.row.form-inline
           = f.label :created_at, '作成日', class: 'col-sm-2 col-form-label d-inline'
@@ -55,12 +60,12 @@
         - @products.each do |product|
           tbody
             tr
-              / 一括更新チェックボックス配置
+              / 一括削除チェックボックス配置
               td.text-center.align-middle
                 = check_box_tag 'id[]', product.id
               td.text-center.align-middle = product.code
               td.text-center.align-middle = product.name.truncate(30)
-              td.text-center.align-middle = product.stock_number
+              td.text-center.align-middle = product.stocks.all.sum(:quantity)
               td.text-center.align-middle 
                 - unless product.image_url.blank?
                   = image_tag product.image_url, class: 'img_index'

@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+  # 商品一覧
   def index
     params[:q][:stock_number_gteq] = '' if params[:stock_number].to_i == 1
     params[:q][:stock_number_gteq] = 1  if params[:stock_number].to_i == 2
@@ -9,6 +10,7 @@ class ProductsController < ApplicationController
 
   def new
     @product = Product.new
+    @product.stocks.build
   end
 
   def create
@@ -18,18 +20,15 @@ class ProductsController < ApplicationController
       redirect_to products_path
     else
       render :new
-      return
     end
-    # stocksテーブルに在庫データを追加する
-    @stock = Stock.new({price: product_params[:price], quantity: product_params[:stock_number], product_id: @product[:id]})
-    @stock[:total] = @stock.total
-    @stock.save
   end
 
+  # 詳細ページ
   def show
     @product = Product.find_by(id: params[:id])
   end
 
+  # 編集
   def edit
     @product = Product.find_by(id: params[:id])
   end
@@ -43,12 +42,14 @@ class ProductsController < ApplicationController
     end
   end
 
+  # 削除
   def destroy
     @product = Product.find_by(id: params[:id])
     @product.destroy
     redirect_to products_path
   end
 
+  # 一括削除
   def destroy_all
     @product = Product.where(id: params[:id])
     @product.destroy_all
@@ -58,6 +59,6 @@ class ProductsController < ApplicationController
   private
 
   def product_params
-    params.require(:product).permit(:code, :name, :stock_number, :price, :image_url, :note)
+    params.require(:product).permit(:code, :name, :image_url, :note, stocks_attributes: [:price, :quantity])
   end
 end

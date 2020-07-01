@@ -1,7 +1,10 @@
 .container.mt-4
   h1 在庫情報
+
   / 追加ボタン
   = link_to '新規追加', new_stock_path, class: 'btn btn-primary float-right mb-3'
+
+  / 一覧表示
   table.table.table-bordered.table-hover.table-sm.mb-5
     thead.thead-dark
       tr
@@ -10,7 +13,8 @@
         th.text-center サムネイル
         th.text-center 総庫数
         th.text-center 平均単価
-        th.text-center 在庫追加
+        th.text-center 追加
+        th.text-center 編集
     - @products.each do |product|
       tbody
         tr
@@ -31,5 +35,8 @@
             - else
               | ¥0
           td.text-center.align-middle = link_to '追加', new_stock_stock_path(product)
+          td.text-center.align-middle = link_to '編集', edit_stock_stock_path(product)
+
+  / ページネーション
   .float-right
     = paginate @products

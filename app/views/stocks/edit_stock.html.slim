@@ -1,0 +1,25 @@
+.container.mt-4
+    - @stocks.each do |stock|
+      = form_for stock, url: update_stock_stock_path do |f|
+        .form-group.row
+          = f.hidden_field :id, value: stock.id
+          = f.label :'・単価', class: 'col-sm-2 col-form-label'
+          .col-sm-3 = f.number_field :price, min: 0, value: stock.price, class: 'form-control'
+          = f.label :'在庫数', class: 'col-sm-2 col-form-label'
+          .col-sm-3 = f.number_field :quantity, min: 0, value: stock.quantity, class: 'form-control'
+          = f.submit '保存', class: 'btn btn-primary'
+/ 
+  / table.table.table-bordered.table-hover.table-sm.mb-5
+  /   thead.thead-dark
+  /     tr
+  /       th.text-center 単価
+  /       th.text-center 在庫数
+  /       th.text-center 保存
+  /   - @stocks.each do |stock|
+  /     = form_for stock, url: update_stock_stock_path do |f|
+  /       tbody
+  /         tr
+  /           = f.hidden_field :id, value: stock.id
+  /           td.text-center = f.number_field :price, min: 0, value: stock.price, class: 'form-control'
+  /           td.text-center = f.number_field :quantity, min: 0, value: stock.quantity, class: 'form-control'
+  /           td.text-center = f.submit '保存', class: 'btn btn-primary'
