@@ -1,0 +1,4 @@
+h1 Ajaxを使ってみよう
+= form_tag url_for(controller: 'practices', action: 'index'), remote: true do
+  = text_field_tag :title
+  = submit_tag "タイトルを変更する"

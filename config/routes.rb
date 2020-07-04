@@ -2,6 +2,10 @@ Rails.application.routes.draw do
   # トップページに商品一覧
   get '/' => 'products#index'
 
+  # Ajax練習
+  get '/practices/index'
+  post 'practices/index'
+
   # 商品一覧の一括削除機能
   delete '/products/destroy_all' => 'products#destroy_all'
 
