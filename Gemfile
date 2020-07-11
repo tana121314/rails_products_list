@@ -69,3 +69,4 @@ gem 'ransack'
 gem 'rails-i18n'
 gem 'ridgepole'
 gem 'pry-rails'
+gem "jquery-rails"

@@ -43,7 +43,6 @@ class StocksController < ApplicationController
   def edit_stock
     # 商品のIDに紐づけられた在庫データを全て取得
     @stocks = Stock.where(product_id: params[:id])
-    # binding.pry
   end
 
   def update_stock
