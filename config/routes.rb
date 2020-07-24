@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  devise_for :users
+
   # トップページに商品一覧
   get '/' => 'products#index'
 
@@ -10,7 +12,6 @@ Rails.application.routes.draw do
   delete '/products/destroy_all' => 'products#destroy_all'
 
   resources :products
-  resources :stocks
 
   # 在庫追加（在庫一覧の追加リンクから対象商品を直接選択する方法）
   resources :stocks do

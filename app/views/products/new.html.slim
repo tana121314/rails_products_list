@@ -20,14 +20,6 @@
         .form-group.row
           = f.label :'商品名：', class: 'col-md-2 col-form-label'
           .col-md-10 = f.text_field :name, class: 'form-control'
-        / 在庫数（stocksテーブルに追加）
-        / .form-group.row
-        /   = f.label :'在庫数：', class: 'col-md-2 col-form-label'
-        /   .col-md-10 = f.number_field :stock_number, min: 0, class: 'form-control'
-        / 単価（stocksテーブルに追加）
-        / .form-group.row
-        /   = f.label :'単価：', class: 'col-md-2 col-form-label'
-        /   .col-md-10 = f.number_field :price, min: 0, class: 'form-control'
         = f.fields_for :stocks do |s|
           .form-group.row
             = f.label :'在庫数：', class: 'col-md-2 col-form-label'

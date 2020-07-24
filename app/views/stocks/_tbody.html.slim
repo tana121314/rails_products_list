@@ -1,0 +1,23 @@
+- @products.each do |product|
+  tbody
+    tr
+      td.text-center.align-middle = product.code
+      td.text-center.align-middle = product.name.truncate(30)
+      td.text-center.align-middle 
+        - unless product.image_url.blank?
+          = image_tag product.image_url, class: 'img_index'
+        - else
+          | No image..
+      / quantityの合計
+      td.text-center.align-middle = product.stocks.all.sum(:quantity)
+      / quantity * priceの合計 / quantityの合計
+      td.text-center.align-middle
+        - if product.stocks.all.sum(:quantity).positive?
+          - average_price = product.stocks.all.sum(:total) / product.stocks.all.sum(:quantity)
+          = number_to_currency(average_price, format: '%u%n', unit: '¥')
+        - else
+          | ¥0
+      td.text-center.align-middle = link_to '追加', new_stock_stock_path(product)
+      td.text-center.align-middle = link_to '編集', edit_stock_stock_path(product)
+      td.text-center.align-middle = link_to 'ボタン', stocks_path(product), remote: true, class: 'btn btn-primary'
+    /   td.text-center.align-middle = link_to 'ボタン', stocks_path(product), method: :post, remote: true, class: 'btn btn-primary'

@@ -6,37 +6,39 @@
 
   / 一覧表示
   table.table.table-bordered.table-hover.table-sm.mb-5
-    thead.thead-dark
-      tr
-        th.text-center 商品ID
-        th.text-center 商品名
-        th.text-center サムネイル
-        th.text-center 総庫数
-        th.text-center 平均単価
-        th.text-center 追加
-        th.text-center 編集
-    - @products.each do |product|
-      tbody
-        tr
-          td.text-center.align-middle = product.code
-          td.text-center.align-middle = product.name.truncate(30)
-          td.text-center.align-middle 
-            - unless product.image_url.blank?
-              = image_tag product.image_url, class: 'img_index'
-            - else
-              | No image..
-          / quantityの合計
-          td.text-center.align-middle = product.stocks.all.sum(:quantity)
-          / quantity * priceの合計 / quantityの合計
-          td.text-center.align-middle
-            - if product.stocks.all.sum(:quantity).positive?
-              - average_price = product.stocks.all.sum(:total) / product.stocks.all.sum(:quantity)
-              = number_to_currency(average_price, format: '%u%n', unit: '¥')
-            - else
-              | ¥0
-          td.text-center.align-middle = link_to '追加', new_stock_stock_path(product)
-          td.text-center.align-middle = link_to '編集', edit_stock_stock_path(product)
+    == render 'thead'
+    == render 'tbody'
 
   / ページネーション
   .float-right
     = paginate @products
+
+javascript:
+  $(document).on('click', '.js-status-btn', function () {
+    var status = $(this).data('status')
+        invoice_id = $(this).closest('tr').find('#invoices__id').val()
+
+    $.ajax({
+      type: 'PATCH',
+      url: 'invoices/'+invoice_id,
+      data: {
+        invoice: {
+          status: status
+        }
+      },
+      success: function (data) {
+        if(data.error_message){
+          alert(data.error_message);
+        }else{
+          $('#invoice_status_'+invoice_id).text(data.status)
+          $('#invoice_status_'+invoice_id).addClass('table-warning')
+          if(data.status == "入金確認済み"){
+            $('.js-status-btn').addClass('disabled')
+          }
+        }
+      },
+      error: function () {
+          alert('ステータス更新失敗');
+      }
+    });
+  })
